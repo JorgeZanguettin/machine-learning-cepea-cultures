@@ -3,6 +3,10 @@
 
 &emsp;O objetivo desse projeto e utilizar a grande variedade de indicadores do agronegocio coletados do renomado site do Centro de Estudos Avançados em Economia Aplicada (CEPEA) para o treino e contrucao de modelos matematicos regressores preditivos utilizando a linguegem Python e suas diversas bibliotecas de Machine Learning.
 
+## Avaliação dos modelos
+
+<img src="https://portfolio-resumes.s3.amazonaws.com/CEPEA Model Evaluation.png">
+
 ## Instruções
 
 &emsp;Todas as culturas compativeis com o projeto estao listados no arquivo **cultures.json**.
