@@ -1,0 +1,96 @@
+{
+    "acucar": {
+        "53": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/acucar.aspx?id=53",
+            "title": "INDICADOR DO ACUCAR CRISTAL BRANCO CEPEA/ESALQ - SAO PAULO"
+        },
+        "143": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/acucar.aspx?id=143",
+            "title": "INDICADOR DO ACUCAR CRISTAL BRANCO ESALQ/BVMF - SANTOS"
+        }
+    },
+    "arroz": {
+        "91": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/arroz.aspx?id=91",
+            "title": "INDICADOR DO ARROZ EM CASCA CEPEA/IRGA-RS"
+        }
+    },
+    "bezerro": {
+        "8": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/bezerro.aspx?id=8",
+            "title": "INDICADOR DO BEZERRO ESALQ/BM&FBOVESPA - MATO GROSSO DO SUL"
+        }
+    },
+    "boi-gordo": {
+        "2": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/boi-gordo.aspx?id=2",
+            "title": "INDICADOR DO BOI GORDO CEPEA/B3"
+        }
+    },
+    "cafe": {
+        "23": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/cafe.aspx?id=23",
+            "title": "INDICADOR DO CAFE ARABICA CEPEA/ESALQ"
+        },
+        "24": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/cafe.aspx?id=24",
+            "title": "INDICADOR DO CAFE ROBUSTA CEPEA/ESALQ"
+        }
+    },
+    "etanol": {
+        "103": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/etanol.aspx?id=103",
+            "title": "INDICADOR SEMANAL DO ETANOL HIDRATADO COMBUSTIVEL CEPEA/ESALQ - SAO PAULO"
+        },
+        "104": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/etanol.aspx?id=104",
+            "title": "INDICADOR SEMANAL DO ETANOL ANIDRO CEPEA/ESALQ - SAO PAULO"
+        },
+        "85": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/etanol.aspx?id=85",
+            "title": "Indicador Semanal do Etanol Hidratado Outros Fins CEPEA/ESALQ - Sao Paulo"
+        }
+    },
+    "frango": {
+        "181": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/frango.aspx?id=181",
+            "title": "PRECOS DO FRANGO CONGELADO CEPEA/ESALQ - ESTADO SP"
+        },
+        "130": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/frango.aspx?id=130",
+            "title": "PRECOS DO FRANGO RESFRIADO CEPEA/ESALQ - ESTADO SP"
+        }
+    },
+    "milho": {
+        "77": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/milho.aspx?id=77",
+            "title": "INDICADOR DO MILHO ESALQ/BM&FBOVESPA"
+        }
+    },
+    "soja": {
+        "92": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/soja.aspx?id=92",
+            "title": "INDICADOR DA SOJA ESALQ/BM&FBOVESPA - PARANAGUA"
+        },
+        "12": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/soja.aspx?id=12",
+            "title": "INDICADOR DA SOJA CEPEA/ESALQ - PARANA"
+        }
+    },
+    "tilapia": {
+        "349": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/tilapia.aspx?id=349",
+            "title": "Precos da tilapia"
+        }
+    },
+    "trigo": {
+        "178": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/trigo.aspx?id=178",
+            "title": "PRECO MEDIO DO TRIGO CEPEA/ESALQ - PARANA"
+        },
+        "179": {
+            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/trigo.aspx?id=179",
+            "title": "PRECO MEDIO DO TRIGO CEPEA/ESALQ - RIO GRANDE DO SUL"
+        }
+    }
+}
