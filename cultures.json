@@ -77,12 +77,6 @@
             "title": "INDICADOR DA SOJA CEPEA/ESALQ - PARANA"
         }
     },
-    "tilapia": {
-        "349": {
-            "url": "https://www.cepea.esalq.usp.br/br/indicador/series/tilapia.aspx?id=349",
-            "title": "Precos da tilapia"
-        }
-    },
     "trigo": {
         "178": {
             "url": "https://www.cepea.esalq.usp.br/br/indicador/series/trigo.aspx?id=178",

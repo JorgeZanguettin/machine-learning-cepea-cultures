@@ -21,7 +21,7 @@ class DatasetPipeline:
     datasets_dir = f"{root_dir}/datasets"
 
     # Options Configurations
-    exclude_cultures = ["algodao", "mandioca", "ovos", "suino"]
+    exclude_cultures = ["algodao", "mandioca", "ovos", "suino", "tilapia"]
 
     # Datasets Configurations
     time_steps = None
@@ -101,6 +101,7 @@ class DatasetPipeline:
     def getter_dataset(self, culture_alias, culture_id, time_steps):
         logging.info("Dataset Getting")
         self.time_steps = time_steps
+        self.create_datasets_directories()
 
         filename = f"{culture_alias}_{culture_id}_dataset.xls"
 
