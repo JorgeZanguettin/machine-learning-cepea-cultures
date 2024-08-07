@@ -26,10 +26,7 @@ class DatasetPipeline:
     # Datasets Configurations
     time_steps = None
 
-
     def getter_datasets_json(self, update=False) -> None:
-        logging.info("Dataset Start Pipeline")
-
         if update or not os.path.exists(f"{self.root_dir}/cultures.json"):
             cultures = self.getter_dataset_list()
 
@@ -41,7 +38,6 @@ class DatasetPipeline:
 
         return cultures
 
-
     def getter_dataset_list(self):
         logging.info("Retrieving dataset list")
 
@@ -50,15 +46,17 @@ class DatasetPipeline:
 
         start_request = requests.get(self.base_url, headers=self.cookies)
         start_response = BeautifulSoup(start_request.content, "html.parser")
-    
+
         categories = [
-            culture["href"] 
-            for culture in start_response.select("div#imagenet-categoria div ul li a") 
+            culture["href"]
+            for culture in start_response.select("div#imagenet-categoria div ul li a")
             if "/indicador/" in culture["href"]
         ]
 
         for i, category in enumerate(categories):
-            logging.info("Retrieving culture details {}/{}".format(i+1, len(categories)))
+            logging.info(
+                "Retrieving culture details {}/{}".format(i + 1, len(categories))
+            )
 
             culture, sub_cultures = self.update_details_cultures(category)
             if culture not in self.exclude_cultures and sub_cultures:
@@ -66,28 +64,33 @@ class DatasetPipeline:
 
         return cultures
 
-
     def update_details_cultures(self, base_url):
         sub_cultures = {}
 
         request = requests.get(base_url, headers=self.cookies)
         response = BeautifulSoup(request.content, "html.parser")
 
-        for culture in response.select("div.imagenet-content.imagenet-left div.imagenet-col-12"):
+        for culture in response.select(
+            "div.imagenet-content.imagenet-left div.imagenet-col-12"
+        ):
             block_url = culture.select_one("a:nth-of-type(4)")
             if block_url:
                 url = block_url["href"]
-                title = culture.select_one("div.imagenet-col-8.imagenet-sm-12.imagenet-table-titulo").text
+                title = culture.select_one(
+                    "div.imagenet-col-8.imagenet-sm-12.imagenet-table-titulo"
+                ).text
                 block_id = url.split("?id=")[-1]
 
                 if block_id not in sub_cultures:
-                    sub_cultures.update({
-                    block_id: {
-                        "url": url,
-                        "title": unidecode(title),
-                    }
-                })
-        
+                    sub_cultures.update(
+                        {
+                            block_id: {
+                                "url": url,
+                                "title": unidecode(title),
+                            }
+                        }
+                    )
+
         culture_alias = base_url.split("/indicador/")[1].split(".")[0]
 
         return culture_alias, sub_cultures
@@ -107,22 +110,23 @@ class DatasetPipeline:
 
         if filename not in os.listdir(f"{self.datasets_dir}"):
             resp = requests.get(
-                f"{self.base_url}/indicador/series/{culture_alias}.aspx?id={culture_id}", 
-                headers=self.cookies
+                f"{self.base_url}/indicador/series/{culture_alias}.aspx?id={culture_id}",
+                headers=self.cookies,
             )
 
-            output = open(f"{self.datasets_dir}/{filename}", 'wb')
+            output = open(f"{self.datasets_dir}/{filename}", "wb")
             output.write(resp.content)
             output.close()
 
-        workbook = xlrd.open_workbook(f"{self.datasets_dir}/{filename}", ignore_workbook_corruption=True)
+        workbook = xlrd.open_workbook(
+            f"{self.datasets_dir}/{filename}", ignore_workbook_corruption=True
+        )
 
         return pd.read_excel(
             workbook,
-            sheet_name = "Plan 1",
-            skiprows = range(0, 3),
+            sheet_name="Plan 1",
+            skiprows=range(0, 3),
         )
-
 
     def set_regressor_attributes(self, df, attribute) -> pd.DataFrame:
         logging.info("Add time steps to the dataset")
@@ -130,7 +134,7 @@ class DatasetPipeline:
         list_of_prev_t_instants = list(range(1, self.time_steps))
 
         list_of_prev_t_instants.sort()
-        start = list_of_prev_t_instants[-1] 
+        start = list_of_prev_t_instants[-1]
         end = len(df)
         df.reset_index(drop=True)
 
@@ -139,25 +143,28 @@ class DatasetPipeline:
 
         df_temp = pd.DataFrame()
 
-        for prev_t in list_of_prev_t_instants :
-            new_col = pd.DataFrame(df[attribute].iloc[(start - prev_t) : (end - prev_t)])
+        for prev_t in list_of_prev_t_instants:
+            new_col = pd.DataFrame(
+                df[attribute].iloc[(start - prev_t) : (end - prev_t)]
+            )
             new_col.reset_index(drop=True, inplace=True)
-            new_col.rename(columns={attribute : '{}_(t-{})'.format(attribute, prev_t)}, inplace=True)
+            new_col.rename(
+                columns={attribute: "{}_(t-{})".format(attribute, prev_t)}, inplace=True
+            )
 
             df_temp = pd.concat([df_temp, new_col], sort=False, axis=1)
 
         df_copy = pd.concat([df_copy, df_temp], sort=False, axis=1)
-        
-        return df_copy
 
+        return df_copy
 
     def dataset_config(self, df):
         logging.info("Renaming and deleting columns from the dataset")
-        df.rename(columns = {'Data':'date', "À vista R$": "value"}, inplace = True)
-        df.drop(columns = ["À vista US$"], inplace = True)
+        df.rename(columns={"Data": "date", "À vista R$": "value"}, inplace=True)
+        df.drop(columns=["À vista US$"], inplace=True)
 
         logging.info("Formatting dataset columns")
-        df["date"] = pd.to_datetime(df["date"], format = "%d/%m/%Y")
+        df["date"] = pd.to_datetime(df["date"], format="%d/%m/%Y")
         df["value"] = df["value"].apply(pd.to_numeric)
 
         logging.info("Add new columns to the dataset")
@@ -166,7 +173,6 @@ class DatasetPipeline:
         df = self.set_regressor_attributes(df, "value")
 
         return df
-
 
     @staticmethod
     def dataset_predict_skip(df, new_values):
@@ -179,10 +185,9 @@ class DatasetPipeline:
             new_df[0].insert(1, new_values[-1])
             new_df[0].pop(-1)
 
-            df = pd.DataFrame(new_df, columns = df_columns)
+            df = pd.DataFrame(new_df, columns=df_columns)
 
         return df
-
 
     @staticmethod
     def dataset_splitting(df):
@@ -191,7 +196,6 @@ class DatasetPipeline:
         df = df.drop(["date"], axis=1)
 
         return df.drop(["value"], axis=1), df.loc[:, "value"]
-    
 
     @staticmethod
     def set_year_seasons(row):
@@ -201,13 +205,24 @@ class DatasetPipeline:
         month = int(row.month)
 
         dict_ = {
-            1: 3, 2: 3, 3: [3, 0], 4: 0, 5: 0, 6: [0, 1], 7: 1, 8: 1, 9: [1, 2], 10: 2, 11: 2, 12: [2, 3]
+            1: 3,
+            2: 3,
+            3: [3, 0],
+            4: 0,
+            5: 0,
+            6: [0, 1],
+            7: 1,
+            8: 1,
+            9: [1, 2],
+            10: 2,
+            11: 2,
+            12: [2, 3],
         }
         season = dict_[month]
 
         if type(season) == int:
             return season
-        
+
         if day < 21:
             return season[0]
         else:
